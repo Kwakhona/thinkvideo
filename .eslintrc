@@ -1,35 +1,54 @@
 {
-  "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true,
     "es6": true
   },
-  "modules": true,
-  "ecmaFeatures": {
-    "modules": true,
-    "forOf": true,
-    "blockBindings": true,
-    "arrowFunctions": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "generators": true,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "experimentalObjectRestSpread": true
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module"
   },
   "rules": {
-    "semi": 2,
     "indent": [
-      2,
+      "error",
       4
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
     ]
   },
-  "quotes": [
-    2,
-    "single"
-  ]
+  "globals": {
+    "angular": false,
+    "var2": false,
+    "SERVICE_BASE_URI": false,
+    "ENVIRONMENT": false,
+    "IO_LOCATION_PATH": false,
+    "GA_TRACKING_ID": false,
+    "SENTRY_URL": false,
+    "$": false,
+    "jQuery": false,
+    "window.jQuery": false,
+    "_": false,
+    "moment": false,
+    "Highcharts": false,
+    "io": false,
+    "AFRIGIS_LIB_URL": false,
+    "AGMap": false,
+    "AGCoord": false,
+    "AGMarkerOptions": false,
+    "AGMarker": false,
+    "AGIcon": false,
+    "AGSize": false,
+    "AGPoint": false,
+    "AGInfoDisplayOptions": false,
+    "AGEvent": false
+  }
 }

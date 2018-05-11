@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - "6"
+  - '7.4'
+before_script:
+  - npm install -g codacy-coverage
 after_script:
-  - codeclimate-test-reporter < coverage/lcov.info
-cache:
-  directories:
-  - node_modules
+  - cat reports/coverage/lcov.info | codacy-coverage

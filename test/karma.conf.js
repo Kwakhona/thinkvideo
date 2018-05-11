@@ -1,83 +1,79 @@
-// Karma configuration
-// Generated on Thu Sep 22 2016 13:02:57 GMT+0200 (SAST)
-var webpackConfig = require('../webpack.config');
+let webpackConfig = require('../build/webpack.test.config');
 
-process.env.BABEL_ENV = "test";
+module.exports = function (config) {
+    'use strict';
 
-module.exports = function(config) {
-  config.set({
+    config.set({
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+        // base path, that will be used to resolve files and exclude
+        basePath: '',
 
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+        // testing framework to use (jasmine/mocha/qunit/...)
+        // as well as any additional frameworks (requirejs/chai/sinon/...)
+        frameworks: [
+            "jasmine"
+        ],
 
+        preprocessors: {
+            ['../app/test.js']: ['webpack']
+        },
 
-    // list of files / patterns to load in the browser
-    files: [
-      '../src/index.js',
-      '../node_modules/angular-mocks/angular-mocks.js',
-      '../src/**/*.spec.js'
-    ],
+        webpack: webpackConfig,
 
+        // list of files / patterns to load in the browser
+        files: [
+            '../app/test.js'
+        ],
 
-    // list of files to exclude
-    exclude: [
-    ],
+        // web server port
+        port: 9876,
 
+        // Start these browsers, currently available:
+        // - Chrome
+        // - ChromeCanary
+        // - Firefox
+        // - Opera
+        // - Safari (only Mac)
+        // - PhantomJS
+        // - IE (only Windows)
+        browsers: [
+            "PhantomJS"
+            // "Chrome"
+        ],
 
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      ['../src/index.js']: ['webpack'],
-      ['../src/**/*.spec.js']: ['webpack']
-    },
+        // Continuous Integration mode
+        // if true, it capture browsers, run tests and exit
+        singleRun: false,
 
-    webpack: webpackConfig,
+        colors: true,
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+        // level of logging
+        // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
+        logLevel: config.LOG_INFO,
 
-    coverageReporter: {
-      reporters: [
-        {type: 'lcov', dir: '../coverage', 'subdir': '.'},
-        {type: 'json', dir: '../coverage', 'subdir': '.'},
-        {type: 'text-summary'}
-      ]
-    },
+        reporters: ['progress', 'coverage'],
 
-    // web server port
-    port: 9876,
+        coverageReporter: {
+            reporters: [{
+                    type: 'lcov',
+                    dir: '../reports/coverage',
+                    'subdir': '.'
+                },
+                {
+                    type: 'json',
+                    dir: '../reports/coverage',
+                    'subdir': '.'
+                },
+                {
+                    type: 'text-summary'
+                }
+            ]
+        },
 
+        concurrency: Infinity
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+    });
+};
 
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
-
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
-
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: Infinity
-  })
-}
